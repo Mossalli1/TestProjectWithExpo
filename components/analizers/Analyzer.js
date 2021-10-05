@@ -15,7 +15,7 @@ import FilterCard from "./FilterCard";
 
 const { height, width } = Dimensions.get("window");
 
-export default function Analyzer() {
+export default function Analyzer(props) {
   return (
     <SafeAreaView style={styles.container}>
       {/* <StatusBar
@@ -25,12 +25,12 @@ export default function Analyzer() {
         showHideTransition={statusBarTransition}
         hidden={hidden}
       /> */}
-      <CustomHeader />
+      {/* <CustomHeader /> */}
       <Title
         title="User Analyzer"
         subTitle="Select filters to generate report"
       />
-      <FilterCard />
+      <FilterCard onPress={() => props.navigation.navigate("Users")} />
     </SafeAreaView>
   );
 }

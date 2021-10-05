@@ -21,6 +21,7 @@ const { height, width } = Dimensions.get("window");
 const FilterCard = (props) => {
   // const [checked, setChecked] = React.useState(true);
   const activityStatus = ["Active", "Super Active", "Bored"];
+  // console.log("Props....", props);
   return (
     <View style={styles.container}>
       {/* <Text style={styles.titleText}>Date</Text> */}
@@ -47,7 +48,11 @@ const FilterCard = (props) => {
         ))}
       </View>
       <View style={styles.buttonContainer}>
-        <Button title="Generate" style={{ width: 120 }} />
+        <Button
+          title="Generate"
+          style={{ width: 120 }}
+          onPress={props.onPress}
+        />
       </View>
     </View>
   );

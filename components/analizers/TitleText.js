@@ -13,7 +13,7 @@ export default TitleText;
 const styles = StyleSheet.create({
   titleText: {
     fontSize: 22,
-    color: "#256C75",
+    color: AppColors.titleTextSecondery,
     fontWeight: "500",
     paddingHorizontal: 7,
   },
