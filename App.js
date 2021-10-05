@@ -1,8 +1,6 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import Analyzer from "./components/analizers/Analyzer";
-import UserData from "./src/data/UserData";
 import Users from "./components/users/Users";
 
 import { NavigationContainer } from "@react-navigation/native";
@@ -13,11 +11,6 @@ const Stack = createStackNavigator();
 
 function App() {
   return (
-    // <View style={styles.container}>
-    //   {/* <Text>Open up App.js to start working on your app!</Text> */}
-    //   <Analyzer />
-    //   <StatusBar style="auto" />
-    // </View>
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
@@ -27,6 +20,7 @@ function App() {
             title: "",
             headerStyle: {
               backgroundColor: AppColors.primaryColor,
+              elevation: 5,
             },
           }}
         />
@@ -37,6 +31,7 @@ function App() {
             title: "",
             headerStyle: {
               backgroundColor: AppColors.primaryColor,
+              elevation: 5,
             },
           }}
         />
@@ -47,11 +42,11 @@ function App() {
 
 export default App;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: "#fff",
+//     alignItems: "center",
+//     justifyContent: "center",
+//   },
+// });

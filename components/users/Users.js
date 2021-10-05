@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import {
   StyleSheet,
@@ -23,29 +22,14 @@ const Users = (props) => {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <View style={{ paddingTop: 18, paddingBottom: 50 }}>
+    <View style={styles.mainContainer}>
       <TouchableOpacity
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "flex-end",
-          width: width,
-          paddingRight: 15,
-          // backgroundColor: "red",
-        }}
+        style={styles.filterContainer}
         onPress={() => {
           setShowModal(!showModal);
         }}
       >
-        <Text
-          style={{
-            color: AppColors.seconderyColor,
-            fontSize: 16,
-            marginRight: 2,
-          }}
-        >
-          Edit Filter
-        </Text>
+        <Text style={styles.filterText}>Edit Filter</Text>
         <Ionicons
           name="options-outline"
           size={22}
@@ -53,26 +37,10 @@ const Users = (props) => {
         />
       </TouchableOpacity>
 
-      <View style={{ paddingTop: 25, paddingBottom: 15 }}>
-        <View
-          style={{
-            flexDirection: "row",
-            marginHorizontal: 28,
-            borderColor: AppColors.seconderyColor,
-            borderWidth: 1,
-            paddingHorizontal: 12,
-            alignItems: "center",
-          }}
-        >
+      <View style={styles.serachContainer}>
+        <View style={styles.searchBox}>
           <Ionicons name="search-outline" size={22} color="#676667" />
-          <TextInput
-            placeholder="Search by name"
-            style={{
-              width: "90%",
-              marginHorizontal: 10,
-              paddingVertical: 9,
-            }}
-          />
+          <TextInput placeholder="Search by name" style={styles.textInput} />
         </View>
       </View>
 
@@ -84,32 +52,9 @@ const Users = (props) => {
           console.log("Modal has been closed.");
         }}
       >
-        <View
-          style={{
-            // backgroundColor: "red",
-            alignItems: "center",
-            justifyContent: "center",
-            paddingTop: 60,
-          }}
-        >
-          <View
-            style={{
-              flexDirection: "row",
-              width: width - 60,
-              justifyContent: "space-between",
-              alignItems: "center",
-              // paddingHorizontal: 20,
-            }}
-          >
-            <Text
-              style={{
-                fontSize: 24,
-                color: AppColors.titleTextSecondery,
-                fontWeight: "500",
-              }}
-            >
-              Edit Filter
-            </Text>
+        <View style={styles.modalViewContainer}>
+          <View style={styles.modalHeader}>
+            <Text style={styles.modalHeaderText}>Edit Filter</Text>
             <TouchableOpacity
               onPress={() => {
                 setShowModal(!showModal);
@@ -126,7 +71,11 @@ const Users = (props) => {
         </View>
       </Modal>
 
-      <ScrollView>
+      <ScrollView
+        contentContainerStyle={{
+          paddingBottom: 40,
+        }}
+      >
         <View style={styles.container}>
           {UserData().map((item, key) => {
             let userId;
@@ -135,9 +84,9 @@ const Users = (props) => {
             //     // ValueId = item.calendar.dateToDayId[dateId].toString();
             //     // console.log("Date....", item.calendar.dateToDayId[dateId]);
             //   });
-            Object.keys(item.calendar.daysWithDetails).map((dateData, key) => {
-              userId = item.calendar.daysWithDetails[dateData].day.userId;
-            });
+            // Object.keys(item.calendar.daysWithDetails).map((dateData, key) => {
+            //   userId = item.calendar.daysWithDetails[dateData].day.userId;
+            // });
 
             let status = filterByFromToDate(
               UserData(),
@@ -194,8 +143,8 @@ const Users = (props) => {
 
 export default Users;
 const styles = StyleSheet.create({
+  mainContainer: { paddingTop: 18, paddingBottom: 50 },
   container: {
-    // alignItems: "center",
     justifyContent: "space-between",
     flexDirection: "row",
     flexWrap: "wrap",
@@ -229,4 +178,46 @@ const styles = StyleSheet.create({
   },
   statusText: { color: "#fff", fontSize: 14, fontWeight: "bold" },
   userIdentityTextContainer: { paddingLeft: 10, paddingTop: 7 },
+  filterContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    width: width,
+    paddingRight: 15,
+  },
+  filterText: {
+    color: AppColors.seconderyColor,
+    fontSize: 16,
+    marginRight: 2,
+  },
+  serachContainer: { paddingTop: 25, paddingBottom: 20 },
+  searchBox: {
+    flexDirection: "row",
+    marginHorizontal: 28,
+    borderColor: AppColors.seconderyColor,
+    borderWidth: 1,
+    paddingHorizontal: 12,
+    alignItems: "center",
+  },
+  textInput: {
+    width: "90%",
+    marginHorizontal: 10,
+    paddingVertical: 9,
+  },
+  modalViewContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingTop: 60,
+  },
+  modalHeader: {
+    flexDirection: "row",
+    width: width - 60,
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  modalHeaderText: {
+    fontSize: 24,
+    color: AppColors.titleTextSecondery,
+    fontWeight: "500",
+  },
 });

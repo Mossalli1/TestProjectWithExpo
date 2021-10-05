@@ -1,10 +1,8 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Dimensions } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { AppColors } from "../../constants";
 import DateTimePicker from "@react-native-community/datetimepicker";
-
-const { height, width } = Dimensions.get("window");
+import moment from "moment";
 
 const DatePicker = (props) => {
   const [date, setDate] = useState(new Date(1598051730000));
@@ -13,7 +11,7 @@ const DatePicker = (props) => {
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
-    setShow(Platform.OS === "ios");
+    setShow(false);
     setDate(currentDate);
   };
 
@@ -26,25 +24,24 @@ const DatePicker = (props) => {
     showMode("date");
   };
 
-  const showTimepicker = () => {
-    showMode("time");
-  };
-  //   return <View style={[styles.header, props.style]}>{props.children}</View>;
   return (
     <View style={[styles.container, props.style]}>
       <Text style={styles.fromToText}>{props.fromTo}</Text>
-      <View style={styles.dateContiner}>
-        <DateTimePicker
-          testID="dateTimePicker"
-          value={date}
-          mode={mode}
-          is24Hour={true}
-          // display="default"
-          onChange={() => onChange()}
-          neutralButtonLabel="clear"
-        />
-        {/* <Text style={{ color: "#888787", fontSize: 16 }}>1 July 2021</Text> */}
-      </View>
+      <TouchableOpacity style={styles.dateContiner} onPress={showDatepicker}>
+        {show && (
+          <DateTimePicker
+            testID="dateTimePicker"
+            value={date}
+            mode={mode}
+            is24Hour={true}
+            display="default"
+            onChange={onChange}
+          />
+        )}
+        <Text style={styles.dateText}>
+          {moment(date).format("DD MMMM YYYY")}
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -53,7 +50,6 @@ export default DatePicker;
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    // backgroundColor: "red",
     alignItems: "center",
     justifyContent: "space-between",
   },
@@ -67,4 +63,5 @@ const styles = StyleSheet.create({
     paddingLeft: 12,
   },
   fromToText: { color: "#428EA3", fontSize: 18, fontWeight: "500" },
+  dateText: { color: "#888787", fontSize: 16 },
 });

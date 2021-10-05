@@ -1,37 +1,29 @@
 import * as React from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Dimensions,
-  CheckBox,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, Text, View, Dimensions } from "react-native";
 import UnderLine from "../../common/UnderLineSeparator";
 import { AppColors } from "../../constants";
 import DatePicker from "./DatePicker";
 import TitleText from "./TitleText";
 import CustomCheckbox from "../../common/CustomCheckbox";
 import Button from "../../common/Button";
-// import { Checkbox, Center, NativeBaseProvider } from "native-base";
-// import { Checkbox } from "react-native-paper";
 
 const { height, width } = Dimensions.get("window");
 
 const FilterCard = (props) => {
-  // const [checked, setChecked] = React.useState(true);
   const activityStatus = ["Active", "Super Active", "Bored"];
-  // console.log("Props....", props);
   return (
     <View style={styles.container}>
-      {/* <Text style={styles.titleText}>Date</Text> */}
       <TitleText title="Date" />
       <View style={{ height: 12, justifyContent: "center" }}>
         <UnderLine />
       </View>
       <View style={{ padding: 7 }}>
-        <DatePicker fromTo="From" />
-        <DatePicker fromTo="To" style={{ marginTop: 15 }} />
+        <DatePicker fromTo="From" fromDateValue={props.dateValue} />
+        <DatePicker
+          fromTo="To"
+          style={{ marginTop: 15 }}
+          toDateValue={props.dateValue}
+        />
       </View>
 
       <View style={{ marginTop: 15 }} />
@@ -62,7 +54,6 @@ export default FilterCard;
 const styles = StyleSheet.create({
   container: {
     width: width - 60,
-    // height: 300,
     borderColor: AppColors.boxBorder,
     borderWidth: 1,
     marginTop: 50,
