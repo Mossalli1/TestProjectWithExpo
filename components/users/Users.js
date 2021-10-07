@@ -15,11 +15,15 @@ import UserData from "../../src/data/UserData";
 import filterByFromToDate from "./filterByFromToDate";
 import { Ionicons } from "@expo/vector-icons";
 import FilterCard from "../analizers/FilterCard";
+import { useDispatch, useSelector } from "react-redux";
+
 
 const { height, width } = Dimensions.get("window");
 
 const Users = (props) => {
   const [showModal, setShowModal] = useState(false);
+
+  console.log('Selector', useSelector((state) => state.datePick))
 
   return (
     <View style={styles.mainContainer}>
@@ -79,19 +83,14 @@ const Users = (props) => {
         <View style={styles.container}>
           {UserData().map((item, key) => {
             let userId;
-            console.log("Items", item.calendar.dateToDayId);
-            //   Object.keys(item.calendar.dateToDayId).map((dateId, key) => {
-            //     // ValueId = item.calendar.dateToDayId[dateId].toString();
-            //     // console.log("Date....", item.calendar.dateToDayId[dateId]);
-            //   });
-            // Object.keys(item.calendar.daysWithDetails).map((dateData, key) => {
-            //   userId = item.calendar.daysWithDetails[dateData].day.userId;
-            // });
+            Object.keys(item.calendar.daysWithDetails).map((dateData, key) => {
+              userId = item.calendar.daysWithDetails[dateData].day.userId;
+            });
 
             let status = filterByFromToDate(
               UserData(),
-              "2016-07-04",
-              "2021-07-05",
+              "2016-07-05",
+              "2016-07-05",
               userId
             );
             return (

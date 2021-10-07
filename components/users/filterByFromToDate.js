@@ -19,7 +19,6 @@ function filterByFromToDate(array, from, to, userId) {
               if (typeof (newItem[key] == "object")) {
                 var dateItem = newItem[key];
                 if (dateItem.day !== undefined) {
-                  console.log("MyValue", dateItem.day.date);
                   fromDate = Date.parse(from);
                   checkDate = Date.parse(dateItem.day.date);
                   toDate = Date.parse(to);

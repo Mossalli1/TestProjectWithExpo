@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View, Dimensions } from "react-native";
 import UnderLine from "../../common/UnderLineSeparator";
 import { AppColors } from "../../constants";
@@ -6,11 +6,31 @@ import DatePicker from "./DatePicker";
 import TitleText from "./TitleText";
 import CustomCheckbox from "../../common/CustomCheckbox";
 import Button from "../../common/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { selectInitialDate, selectLastDate } from "../../redux/reducers/datePick";
+import moment from "moment";
+
 
 const { height, width } = Dimensions.get("window");
 
 const FilterCard = (props) => {
+  const [value, onChangeDate] = useState("");
+
   const activityStatus = ["Active", "Super Active", "Bored"];
+
+  const dispatch = useDispatch();
+  // const datePick = useSelector((state) => state.datePick);
+
+  const selectedDate = (value, fromTo) => {
+    if (value) {
+      if (fromTo=='From') {
+        dispatch(selectInitialDate(moment(value).format('YYYY-MM-DD')));
+      } else {
+        dispatch(selectLastDate(moment(value).format('YYYY-MM-DD')));
+      }
+    }
+  };
+
   return (
     <View style={styles.container}>
       <TitleText title="Date" />
@@ -18,11 +38,14 @@ const FilterCard = (props) => {
         <UnderLine />
       </View>
       <View style={{ padding: 7 }}>
-        <DatePicker fromTo="From" fromDateValue={props.dateValue} />
+        <DatePicker
+          fromTo="From"
+          onChangeDate={selectedDate}
+        />
         <DatePicker
           fromTo="To"
           style={{ marginTop: 15 }}
-          toDateValue={props.dateValue}
+          onChangeDate={selectedDate}
         />
       </View>
 
