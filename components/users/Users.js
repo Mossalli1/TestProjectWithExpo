@@ -15,15 +15,36 @@ import UserData from "../../src/data/UserData";
 import filterByFromToDate from "./filterByFromToDate";
 import { Ionicons } from "@expo/vector-icons";
 import FilterCard from "../analizers/FilterCard";
+import {
+  selectInitialDate,
+  selectLastDate,
+} from "../../redux/reducers/datePick";
 import { useDispatch, useSelector } from "react-redux";
-
 
 const { height, width } = Dimensions.get("window");
 
 const Users = (props) => {
   const [showModal, setShowModal] = useState(false);
+  const selectedDates = useSelector((state) => state.datePick);
+  const [selectedDatesValue, setselectedDatesValue] = useState({});
+  const dispatch = useDispatch();
+  // const setPickedDate= ()=>{
+  //       dispatch(selectInitialDate(moment(value).format("YYYY-MM-DD")));
+  //       dispatch(selectLastDate(moment(value).format("YYYY-MM-DD")));
+  // }
 
-  console.log('Selector', useSelector((state) => state.datePick))
+  const callbackFunction = (childData) => {
+    console.log("Props.....12", childData);
+
+    setselectedDatesValue(childData);
+  };
+
+  console.log("Selector", selectedDates.initialDate);
+  const onGenerate = () => {
+    dispatch(selectInitialDate(selectedDatesValue.valueFrom));
+    dispatch(selectLastDate(selectedDatesValue.valueTo));
+    setShowModal(!showModal);
+  };
 
   return (
     <View style={styles.mainContainer}>
@@ -71,7 +92,10 @@ const Users = (props) => {
               />
             </TouchableOpacity>
           </View>
-          <FilterCard />
+          <FilterCard
+            onPress={() => onGenerate()}
+            parentCallback={callbackFunction}
+          />
         </View>
       </Modal>
 
@@ -89,8 +113,8 @@ const Users = (props) => {
 
             let status = filterByFromToDate(
               UserData(),
-              "2016-07-05",
-              "2016-07-05",
+              selectedDates.initialDate,
+              selectedDates.lastDate,
               userId
             );
             return (

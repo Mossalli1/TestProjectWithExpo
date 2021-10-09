@@ -3,8 +3,12 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { AppColors } from "../../constants";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";
+import { useDispatch, useSelector } from "react-redux";
 
 const DatePicker = (props) => {
+  const selectedDates = useSelector((state) => state.datePick);
+  console.log("Se...", selectedDates);
+  // const [date, setDate] = useState(selectedDates.initialDate!==null || selectedDates.initialDate!==undefined? new Date(selectedDates.initialDate): new Date(1467676800000));
   const [date, setDate] = useState(new Date(1467676800000));
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);

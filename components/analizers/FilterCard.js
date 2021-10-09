@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, memo } from "react";
 import { StyleSheet, Text, View, Dimensions } from "react-native";
 import UnderLine from "../../common/UnderLineSeparator";
 import { AppColors } from "../../constants";
@@ -7,29 +7,49 @@ import TitleText from "./TitleText";
 import CustomCheckbox from "../../common/CustomCheckbox";
 import Button from "../../common/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { selectInitialDate, selectLastDate } from "../../redux/reducers/datePick";
+import {
+  selectInitialDate,
+  selectLastDate,
+} from "../../redux/reducers/datePick";
 import moment from "moment";
-
 
 const { height, width } = Dimensions.get("window");
 
 const FilterCard = (props) => {
-  const [value, onChangeDate] = useState("");
+  // const [value, onChangeDate] = useState("");
+  const [fromDate, setFormDate] = useState();
+  const [toDate, setToDate] = useState();
+  const [test, setTest] = useState(false);
+
+  const selectedDate = (value, fromTo) => {
+    let valueFrom = fromDate;
+    let valueTo = toDate;
+    let formatedDate = moment(value).format("YYYY-MM-DD");
+    if (value) {
+      if (fromTo == "From") {
+        // dispatch(selectInitialDate(moment(value).format("YYYY-MM-DD")));
+        setFormDate(formatedDate);
+        valueFrom = formatedDate;
+
+        props.parentCallback({ valueFrom, valueTo });
+      } else {
+        // dispatch(selectLastDate(moment(value).format("YYYY-MM-DD")));
+        setToDate(formatedDate);
+        valueTo = formatedDate;
+
+        props.parentCallback({ valueFrom, valueTo });
+      }
+    }
+  };
+
+  const selectedDates = useSelector((state) => state.datePick);
 
   const activityStatus = ["Active", "Super Active", "Bored"];
 
   const dispatch = useDispatch();
   // const datePick = useSelector((state) => state.datePick);
-
-  const selectedDate = (value, fromTo) => {
-    if (value) {
-      if (fromTo=='From') {
-        dispatch(selectInitialDate(moment(value).format('YYYY-MM-DD')));
-      } else {
-        dispatch(selectLastDate(moment(value).format('YYYY-MM-DD')));
-      }
-    }
-  };
+  console.log("Dates", selectedDates);
+  console.log("Dates2", props);
 
   return (
     <View style={styles.container}>
@@ -38,10 +58,7 @@ const FilterCard = (props) => {
         <UnderLine />
       </View>
       <View style={{ padding: 7 }}>
-        <DatePicker
-          fromTo="From"
-          onChangeDate={selectedDate}
-        />
+        <DatePicker fromTo="From" onChangeDate={selectedDate} />
         <DatePicker
           fromTo="To"
           style={{ marginTop: 15 }}
@@ -66,14 +83,20 @@ const FilterCard = (props) => {
         <Button
           title="Generate"
           style={{ width: 120 }}
-          onPress={props.onPress}
+          onPress={
+            props.onPress
+            // selectedDates.initialDate == fromDate ||
+            // selectedDates.lastDate == toDate
+            //   ? props.onPress
+            //   : null
+          }
         />
       </View>
     </View>
   );
 };
 
-export default FilterCard;
+export default memo(FilterCard);
 const styles = StyleSheet.create({
   container: {
     width: width - 60,
