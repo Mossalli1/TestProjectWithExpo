@@ -21,6 +21,7 @@
       "bundleIdentifier": "y"
     },
     "android": {
+      "package": "com.testapp.chaldal",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"

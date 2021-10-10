@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Platform,
+} from "react-native";
 import { AppColors } from "../../constants";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";
@@ -12,10 +18,7 @@ const DatePicker = (props) => {
   let currentDate = date;
 
   const onChange = (event, selectedDate) => {
-    console.log("Selected", selectedDate);
-    currentDate = selectedDate;
-    console.log("Selected....1", currentDate);
-
+    currentDate = selectedDate !== undefined ? selectedDate : date;
     setShow(false);
     setDate(currentDate);
     props.onChangeDate(currentDate, props.fromTo);
@@ -34,7 +37,13 @@ const DatePicker = (props) => {
   return (
     <View style={[styles.container, props.style]}>
       <Text style={styles.fromToText}>{props.fromTo}</Text>
-      <TouchableOpacity style={styles.dateContiner} onPress={showDatepicker}>
+      <TouchableOpacity
+        style={[
+          styles.dateContiner,
+          { paddingTop: Platform.OS == "ios" && show ? 15 : 0 },
+        ]}
+        onPress={showDatepicker}
+      >
         {show && (
           <DateTimePicker
             testID="dateTimePicker"
@@ -45,7 +54,9 @@ const DatePicker = (props) => {
           />
         )}
         <Text style={styles.dateText}>
-          {moment(date).format("DD MMMM YYYY")}
+          {Platform.OS == "ios" && show
+            ? ""
+            : moment(date).format("DD MMMM YYYY")}
         </Text>
       </TouchableOpacity>
     </View>
