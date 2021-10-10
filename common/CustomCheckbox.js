@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import * as React from "react";
 import {
   StyleSheet,
@@ -8,10 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { AppColors } from "../constants";
-
 import { Feather } from "@expo/vector-icons";
-
-const { height, width } = Dimensions.get("window");
 
 const CustomCheckbox = (props) => {
   const [checked, setChecked] = React.useState(true);
@@ -38,10 +34,8 @@ const styles = StyleSheet.create({
     paddingTop: 2,
     paddingLeft: 2,
     justifyContent: "center",
-    // borderRadius: 10,
   },
   checkboxShapeUnchecked: {
-    // backgroundColor: "red",
     height: 22,
     width: 22,
     alignItems: "center",
@@ -50,6 +44,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderColor: AppColors.primaryColor,
     borderWidth: 1,
-    // borderRadius: 10,
   },
 });

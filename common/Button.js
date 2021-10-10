@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
 import {
   StyleSheet,
@@ -8,8 +7,6 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { AppColors } from "../constants";
-
-const { height, width } = Dimensions.get("window");
 
 const Button = (props) => {
   return (

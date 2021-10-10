@@ -8,7 +8,7 @@ import { AppColors } from "./constants";
 
 const Stack = createStackNavigator();
 
-function Router() {
+const Router = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -37,15 +37,6 @@ function Router() {
       </Stack.Navigator>
     </NavigationContainer>
   );
-}
+};
 
 export default Router;
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: "#fff",
-//     alignItems: "center",
-//     justifyContent: "center",
-//   },
-// });

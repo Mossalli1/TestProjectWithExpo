@@ -1,9 +1,6 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View, Dimensions } from "react-native";
 import { AppColors } from "../../constants";
-
-const { height, width } = Dimensions.get("window");
 
 const TitleText = (props) => {
   return <Text style={styles.titleText}>{props.title}</Text>;

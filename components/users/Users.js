@@ -25,21 +25,15 @@ const { height, width } = Dimensions.get("window");
 
 const Users = (props) => {
   const [showModal, setShowModal] = useState(false);
-  const selectedDates = useSelector((state) => state.datePick);
   const [selectedDatesValue, setselectedDatesValue] = useState({});
+
+  const selectedDates = useSelector((state) => state.datePick);
   const dispatch = useDispatch();
-  // const setPickedDate= ()=>{
-  //       dispatch(selectInitialDate(moment(value).format("YYYY-MM-DD")));
-  //       dispatch(selectLastDate(moment(value).format("YYYY-MM-DD")));
-  // }
 
   const callbackFunction = (childData) => {
-    console.log("Props.....12", childData);
-
     setselectedDatesValue(childData);
   };
 
-  console.log("Selector", selectedDates.initialDate);
   const onGenerate = () => {
     dispatch(selectInitialDate(selectedDatesValue.valueFrom));
     dispatch(selectLastDate(selectedDatesValue.valueTo));

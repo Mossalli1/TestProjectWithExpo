@@ -3,7 +3,9 @@ import { StyleSheet, Dimensions, SafeAreaView } from "react-native";
 import { AppColors } from "../../constants";
 import Title from "./Title";
 import FilterCard from "./FilterCard";
-import { useDispatch, useSelector } from "react-redux";
+
+//Redux
+import { useDispatch } from "react-redux";
 import {
   selectInitialDate,
   selectLastDate,
@@ -14,14 +16,8 @@ const { height, width } = Dimensions.get("window");
 export default function Analyzer(props) {
   const [selectedDatesValue, setselectedDatesValue] = useState({});
   const dispatch = useDispatch();
-  // const setPickedDate= ()=>{
-  //       dispatch(selectInitialDate(moment(value).format("YYYY-MM-DD")));
-  //       dispatch(selectLastDate(moment(value).format("YYYY-MM-DD")));
-  // }
 
   const callbackFunction = (childData) => {
-    console.log("Props.....12", childData);
-
     setselectedDatesValue(childData);
   };
 
@@ -31,8 +27,6 @@ export default function Analyzer(props) {
     props.navigation.navigate("Users");
   };
 
-  console.log("Props.....1", props);
-  console.log("State.....2", selectedDatesValue);
   return (
     <SafeAreaView style={styles.container}>
       <Title

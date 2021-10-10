@@ -1,6 +1,5 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { StyleSheet, Text, View, Dimensions } from "react-native";
+import { StyleSheet, View, Dimensions } from "react-native";
 import { AppColors } from "../constants";
 
 const { height, width } = Dimensions.get("window");
@@ -15,6 +14,5 @@ const styles = StyleSheet.create({
     backgroundColor: AppColors.primaryColor,
     height: 70,
     width: width,
-    // marginTop: 35,
   },
 });

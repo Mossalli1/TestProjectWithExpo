@@ -6,20 +6,15 @@ import DatePicker from "./DatePicker";
 import TitleText from "./TitleText";
 import CustomCheckbox from "../../common/CustomCheckbox";
 import Button from "../../common/Button";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  selectInitialDate,
-  selectLastDate,
-} from "../../redux/reducers/datePick";
 import moment from "moment";
 
 const { height, width } = Dimensions.get("window");
 
 const FilterCard = (props) => {
-  // const [value, onChangeDate] = useState("");
-  const [fromDate, setFormDate] = useState();
-  const [toDate, setToDate] = useState();
-  const [test, setTest] = useState(false);
+  const date = moment(new Date(1467676800000)).format("YYYY-MM-DD");
+  const [fromDate, setFormDate] = useState(date);
+  const [toDate, setToDate] = useState(date);
+  const activityStatus = ["Active", "Super Active", "Bored"];
 
   const selectedDate = (value, fromTo) => {
     let valueFrom = fromDate;
@@ -27,29 +22,16 @@ const FilterCard = (props) => {
     let formatedDate = moment(value).format("YYYY-MM-DD");
     if (value) {
       if (fromTo == "From") {
-        // dispatch(selectInitialDate(moment(value).format("YYYY-MM-DD")));
         setFormDate(formatedDate);
         valueFrom = formatedDate;
-
         props.parentCallback({ valueFrom, valueTo });
       } else {
-        // dispatch(selectLastDate(moment(value).format("YYYY-MM-DD")));
         setToDate(formatedDate);
         valueTo = formatedDate;
-
         props.parentCallback({ valueFrom, valueTo });
       }
     }
   };
-
-  const selectedDates = useSelector((state) => state.datePick);
-
-  const activityStatus = ["Active", "Super Active", "Bored"];
-
-  const dispatch = useDispatch();
-  // const datePick = useSelector((state) => state.datePick);
-  console.log("Dates", selectedDates);
-  console.log("Dates2", props);
 
   return (
     <View style={styles.container}>
@@ -83,13 +65,7 @@ const FilterCard = (props) => {
         <Button
           title="Generate"
           style={{ width: 120 }}
-          onPress={
-            props.onPress
-            // selectedDates.initialDate == fromDate ||
-            // selectedDates.lastDate == toDate
-            //   ? props.onPress
-            //   : null
-          }
+          onPress={props.onPress}
         />
       </View>
     </View>

@@ -3,7 +3,6 @@ function filterByFromToDate(array, from, to, userId) {
   var toDate;
   var checkDate;
   var countArray = [];
-  // console.log("All", from, to, userId);
 
   for (var i = 0; i < array.length; i++) {
     var obj = array[i];
